@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.github.jcustenborder.kafka.connect</groupId>
+        <artifactId>kafka-connect-parent</artifactId>
+        <version>4.3.1-2</version>
+    </parent>
+    <artifactId>kafka-connect-transform-avro</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <name>kafka-connect-transform-avro</name>
+    <url>https://github.com/jcustenborder/kafka-connect-transform-avro</url>
+    <inceptionYear>2026</inceptionYear>
+    <description>Kafka Connect transformation for converting raw Avro binary data to strongly typed Connect data.</description>
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Jeremy Custenborder</name>
+            <email>jcustenborder@gmail.com</email>
+            <url>https://github.com/jcustenborder</url>
+            <roles><role>maintainer</role></roles>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:https://github.com/jcustenborder/kafka-connect-transform-avro.git</connection>
+        <developerConnection>scm:git:git@github.com:jcustenborder/kafka-connect-transform-avro.git</developerConnection>
+        <url>https://github.com/jcustenborder/kafka-connect-transform-avro</url>
+    </scm>
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/jcustenborder/kafka-connect-transform-avro/issues</url>
+    </issueManagement>
+    <properties>
+        <confluent.version>8.3.2</confluent.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-connect-avro-converter</artifactId>
+            <version>${confluent.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <plugin.jar>${project.build.directory}/${project.build.finalName}.jar</plugin.jar>
+                        <plugin.zip>${project.build.directory}/components/packages/jcustenborder-${project.artifactId}-${project.version}.zip</plugin.zip>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.confluent</groupId>
+                <artifactId>kafka-connect-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>hub</id>
+                        <goals><goal>kafka-connect</goal></goals>
+                        <configuration>
+                            <confluentControlCenterIntegration>true</confluentControlCenterIntegration>
+                            <documentationUrl>https://jcustenborder.github.io/kafka-connect-documentation/projects/kafka-connect-transform-avro/</documentationUrl>
+                            <componentTypes><componentType>transform</componentType></componentTypes>
+                            <tags><tag>Transform</tag><tag>Avro</tag></tags>
+                            <title>Avro Transformation</title>
+                            <supportUrl>${project.issueManagement.url}</supportUrl>
+                            <supportSummary>Support provided through community involvement.</supportSummary>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

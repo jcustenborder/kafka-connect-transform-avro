@@ -1,0 +1,2 @@
+com.github.jcustenborder.kafka.connect.transform.avro.FromAvro$Key
+com.github.jcustenborder.kafka.connect.transform.avro.FromAvro$Value
